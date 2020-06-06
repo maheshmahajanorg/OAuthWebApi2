@@ -46,7 +46,8 @@ string tokenServer = ConfigurationManager.AppSettings["WebTokenServer"].ToString
             var ClientId = "DOTNET";
             var ClientSecret = "EEF47D9A-DBA9-4D02-B7B0-04F4279A6D20";
 
-            alert('1')
+
+
             var jsonData = { grant_type: "password", username: "user", password: "user" };
             $.ajax(
              {
@@ -106,7 +107,7 @@ string tokenServer = ConfigurationManager.AppSettings["WebTokenServer"].ToString
         $("#btnRefreshToken").click(function () {
             RefreshToken();
         });
-
+        alert('1')
         ValidateForToekn();
     </script>
 </body>
