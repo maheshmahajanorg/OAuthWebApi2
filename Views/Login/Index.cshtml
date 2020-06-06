@@ -10,7 +10,6 @@ string tokenServer = ConfigurationManager.AppSettings["WebTokenServer"].ToString
     <title>Index</title>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
 </head>
 <body> 
     <div> this is test demo </div> 
@@ -46,11 +45,13 @@ string tokenServer = ConfigurationManager.AppSettings["WebTokenServer"].ToString
 
             var ClientId = "DOTNET";
             var ClientSecret = "EEF47D9A-DBA9-4D02-B7B0-04F4279A6D20";
+
+            alert('1')
             var jsonData = { grant_type: "password", username: "user", password: "user" };
             $.ajax(
              {
                 type: 'Post',
-                    url: "@tokenServer",
+                url: "@tokenServer",
                 datatype: 'json',
                 data: jsonData,
                 headers:
