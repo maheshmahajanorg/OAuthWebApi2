@@ -1,0 +1,112 @@
+﻿@using System.Configuration;
+@{
+    Layout = null;
+string tokenServer = ConfigurationManager.AppSettings["WebTokenServer"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</head>
+<body> 
+    <div> this is test demo </div> 
+    <div>
+        <input type="button" id="btnRefreshToken" value="Refresh Token" />
+    </div> 
+    <script type="text/javascript">
+        var accessToken = "";
+        var refreshToken = ""; 
+        function ValidateBasicAuth()
+        {
+            var username = "abc";
+            var password = "abc";
+            $.ajax({
+                type: 'GET',
+                url: "http://localhost:63951/api/v1/GetEmployee",
+                datatype: 'json',
+                headers:
+                {
+                    Authorization: 'Basic ' + btoa(username + ':' + password)
+                },
+                success: function (data) {
+                    alert(data[0].Name)
+                },
+                error: function (data) {
+                }
+            });
+        }
+
+
+        function ValidateForToekn()
+        {
+
+            var ClientId = "DOTNET";
+            var ClientSecret = "EEF47D9A-DBA9-4D02-B7B0-04F4279A6D20";
+            var jsonData = { grant_type: "password", username: "user", password: "user" };
+            $.ajax(
+             {
+                type: 'Post',
+                    url: "@tokenServer",
+                datatype: 'json',
+                data: jsonData,
+                headers:
+                {
+                    Authorization: 'Basic ' + btoa(ClientId + ':' + ClientSecret)
+                },
+                success: function (data)
+                {
+                    accessToken = data.access_token;
+                    refreshToken = data.refresh_token;
+                    alert(accessToken);
+                    alert(refreshToken);
+                },
+                    error: function (jqXhr) {
+                        alert(jqXhr.responseText);
+                    }
+            });
+        }
+
+
+        function RefreshToken()
+        {
+            var ClientId = "DOTNET";
+            var ClientSecret = "EEF47D9A-DBA9-4D02-B7B0-04F4279A6D20";
+
+            var jsonData = { grant_type: "refresh_token", refresh_token:"78c0e59269024e80b6719628086f898d" };
+
+            $.ajax(
+                {
+                    type: 'Post',
+                    url: "@tokenServer",
+                    datatype: 'json',
+                    data: jsonData,
+                    headers:
+                    {
+                        Authorization: 'Basic ' + btoa(ClientId + ':' + ClientSecret)
+                    },
+                    success: function (data)
+                    {
+                        accessToken = data.access_token;
+                        refreshToken = data.refresh_token;
+                        alert(accessToken);
+                        alert(refreshToken);
+                    },
+                    error: function (jqXhr)
+                    {
+                        alert(jqXhr.responseText);
+                    }
+                });
+        }
+
+        $("#btnRefreshToken").click(function () {
+            RefreshToken();
+        });
+
+        ValidateForToekn();
+    </script>
+</body>
+</html>
