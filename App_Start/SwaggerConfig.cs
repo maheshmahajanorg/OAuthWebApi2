@@ -268,20 +268,17 @@ namespace TestApi
                 {
                     c.SingleApiVersion("v1", "First WEB API Demo");
 
+                    //var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    ////var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".XML";
+                    //var commentsFileName = "TestApi" + ".XML";
+                    //var commentsFile = Path.Combine(baseDirectory, commentsFileName);
+                    ////c.IncludeXmlComments(commentsFile);
 
-                    var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    //var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".XML";
-                    var commentsFileName = "TestApi" + ".XML";
-                    var commentsFile = Path.Combine(baseDirectory, commentsFileName);
-                    c.IncludeXmlComments(commentsFile);
-
-
-                    //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    //c.IncludeXmlComments(xmlPath);
-
-                    //c.IncludeXmlComments(string.Format(@"{0}\bin\TestApi.xml",
-                    //                   System.AppDomain.CurrentDomain.BaseDirectory));
+                    ////var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    ////var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    ////c.IncludeXmlComments(xmlPath);
+                    c.IncludeXmlComments(string.Format(@"{0}\bin\TestApi.xml",
+                                       System.AppDomain.CurrentDomain.BaseDirectory));
                 }
               )
               .EnableSwaggerUi();
