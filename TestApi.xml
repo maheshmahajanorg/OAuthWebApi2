@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestApi</name>
+    </assembly>
+    <members>
+        <member name="M:TestApi.SwaggerConfig.Register">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:TestApi.App_Start.CustomAuthorize">
+            <summary>
+             custome authorize based on cliam value in feature
+            </summary>
+        </member>
+        <member name="M:TestApi.Auth.CustomAuthorizationProvider.ValidateClientAuthentication(Microsoft.Owin.Security.OAuth.OAuthValidateClientAuthenticationContext)">
+            Validate client
+        </member>
+        <member name="M:TestApi.Auth.CustomAuthorizationProvider.GrantResourceOwnerCredentials(Microsoft.Owin.Security.OAuth.OAuthGrantResourceOwnerCredentialsContext)">
+            <summary>
+            Generate the token based on the user name and password  
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TestApi.Auth.CustomAuthorizationProvider.TokenEndpoint(Microsoft.Owin.Security.OAuth.OAuthTokenEndpointContext)">
+            <summary>
+            To addition properties in token response
+            </summary>
+            <param name="context"></param>
+            <returns></returns> 
+        </member>
+        <member name="M:TestApi.Auth.RefreshTokenProvider.ReceiveAsync(Microsoft.Owin.Security.Infrastructure.AuthenticationTokenReceiveContext)">
+            <summary>
+            ON Refresh token get the data from refresh token stored in database 
+            Get the protected ticket and send back 
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TestApi.Controllers.EmpController.GetEmployee">
+             <summary>
+             Returns the list of employee
+             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TestApi.Controllers.EmpController.GetVmData">
+             <summary>
+             Returns the list of employee
+             </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
