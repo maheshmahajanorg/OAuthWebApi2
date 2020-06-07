@@ -47,7 +47,7 @@ namespace TestApi.Controllers
             HttpWebRequest webRequest =(HttpWebRequest) HttpWebRequest.Create("http://10.0.0.4/test.txt");
             WebResponse webResponse = webRequest.GetResponse();
             Stream stream = webResponse.GetResponseStream();
-            await uploadblob(stream);
+         //   await uploadblob(stream);
             StreamReader streamReader = new StreamReader(stream);
             string text = streamReader.ReadToEnd();
             return Ok(text);
