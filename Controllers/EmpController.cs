@@ -47,10 +47,10 @@ namespace TestApi.Controllers
             HttpWebRequest webRequest =(HttpWebRequest) HttpWebRequest.Create("http://10.0.0.4/test.txt");
             WebResponse webResponse = webRequest.GetResponse();
             Stream stream = webResponse.GetResponseStream();
-         //   await uploadblob(stream);
-            StreamReader streamReader = new StreamReader(stream);
-            string text = streamReader.ReadToEnd();
-            return Ok(text);
+           await uploadblob(stream);
+            //StreamReader streamReader = new StreamReader(stream);
+            //string text = streamReader.ReadToEnd();
+            return Ok("ok");
         }
 
         private static async Task uploadblob(Stream Stream)
@@ -61,7 +61,7 @@ namespace TestApi.Controllers
             {
                 CloudBlobClient l_client = l_account.CreateCloudBlobClient();
                 CloudBlobContainer l_container =
-                l_client.GetContainerReference("staging");
+                l_client.GetContainerReference("blobcontainer");
                 CloudBlockBlob l_blob = l_container.GetBlockBlobReference("test.txt");
                 await l_blob.UploadFromStreamAsync(Stream);
             }
