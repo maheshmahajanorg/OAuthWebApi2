@@ -2,6 +2,10 @@ using System.Web.Http;
 using WebActivatorEx;
 using TestApi;
 using Swashbuckle.Application;
+using System.Reflection;
+using System.IO;
+using System;
+
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
 namespace TestApi
@@ -263,8 +267,15 @@ namespace TestApi
                 c =>
                 {
                     c.SingleApiVersion("v1", "First WEB API Demo");
-                    c.IncludeXmlComments(string.Format(@"{0}\bin\TestApi.xml",
-                                       System.AppDomain.CurrentDomain.BaseDirectory));
+
+
+
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    c.IncludeXmlComments(xmlPath);
+
+                    //c.IncludeXmlComments(string.Format(@"{0}\bin\TestApi.xml",
+                    //                   System.AppDomain.CurrentDomain.BaseDirectory));
                 }
               )
               .EnableSwaggerUi();
