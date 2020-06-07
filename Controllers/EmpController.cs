@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -40,14 +42,29 @@ namespace TestApi.Controllers
         ///<returns></returns>
         [HttpGet]
         [Route("api/v1/ConnectVM")]
-        public IHttpActionResult GetVmData()
+        public async Task<IHttpActionResult> GetVmData()
         {
             HttpWebRequest webRequest =(HttpWebRequest) HttpWebRequest.Create("http://10.0.0.4/test.txt");
             WebResponse webResponse = webRequest.GetResponse();
             Stream stream = webResponse.GetResponseStream();
+            await uploadblob(stream);
             StreamReader streamReader = new StreamReader(stream);
             string text = streamReader.ReadToEnd();
             return Ok(text);
+        }
+
+        private static async Task uploadblob(Stream Stream)
+        {
+            string connstring = "DefaultEndpointsProtocol=https;AccountName=storageaccountfreer950a;AccountKey=oTz/hlDMRm/6imbu/DibwJDGc5XV6hiElMoeC0bVJp73U/9uMjNW/kzOA0SaEM2aQhMnx3uCUHa8P6vDs5h+JQ==;EndpointSuffix=core.windows.net";
+            CloudStorageAccount l_account;
+            if (CloudStorageAccount.TryParse(connstring, out l_account))
+            {
+                CloudBlobClient l_client = l_account.CreateCloudBlobClient();
+                CloudBlobContainer l_container =
+                l_client.GetContainerReference("staging");
+                CloudBlockBlob l_blob = l_container.GetBlockBlobReference("test.txt");
+                await l_blob.UploadFromStreamAsync(Stream);
+            }
         }
     }
 }
